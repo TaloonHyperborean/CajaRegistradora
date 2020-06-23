@@ -51,6 +51,7 @@ class ventana():
 
 
 	def framePrincipal(self):
+		self.frame.pick()
 		self.frame.grid(row=0, column=0, sticky=N+S+E+W)
 		self.frame.config(bg="#B77C1D")
 		Grid.rowconfigure(self.frame, 7, weight=1)
