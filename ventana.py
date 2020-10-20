@@ -1,183 +1,150 @@
-from tkcalendar import DateEntry
 from tkinter import *
-from BD_productos.bd_practica import *
-from BD_productos.bd_inventario import *
-from BD_productos.bd_contenedores import *
-
-from frameContenedor import *
-from frame_nuevo_producto import *
-from frames.frame_promocion import *
-from frames.frame_edicion_producto import *
-from frames.frame_ver_contenedores import *
-from frames.frame_seguridad import *
-from frames.modo_pantalla import *
-from PIL import Image,ImageTk
+from PIL import ImageTk
+import PIL.Image
+from BD_productos.bd_promotores import bd_promotores
+from promos.validar_promocion import ValidarPromocion
+from promos.nuevo_promotor import nuevoPromotor
+from tickets.ObjetoTicket import Ticket
+from promos.ver_promotores import verPromotores
+from modo_caja.cajaRegistradora import modoCaja
+from datetime import date
+import Constantes
 
 
 class ventana():
-	def __init__(self,root,listaOfertas):
+	def __init__(self,root):
 		self.root=root
-		self.bd=bd_inventario()
-		self.bd_contenedor=bd_contenedores()
 		self.frame=Frame(root)
+		self.frame.config(bg="#5D0210")
+		self.modoCaja=modoCaja(root,self)
+			
+		self.bd_promotores=bd_promotores()
+		self.nuevoProm=nuevoPromotor(self,root)
 		
-		self.listaOfertas=listaOfertas
+		self.verPromotores=verPromotores(root,self)
+
+		self.ticket=Ticket(root,self)
+		self.ticket.mainFrameTicket()
+
 		
-		#obj_frame_seguridad=FRAME_SEGURIDAD(root,self.bd_contenedor,listaOfertas)
 
-		self.obj_modo_pantalla=MODO_PANTALLA(root,self.frame,listaOfertas,self.bd_contenedor,self.bd)
+	def menuPrincipal(self):
+		frameArriba=Frame(self.frame,bg="black")
+		frameArriba.pack(expand=True,fill="both")
 
-		objetoFrame=FRAME_CONTENEDOR(root,self.frame)
+		frameMedio=Frame(self.frame,bg="black")
+		frameMedio.pack(expand=True,fill="both")
 
-		frame_edicion_obj=FRAME_EDICION_PRODUCTO(root,self.bd,self.frame)
+		frameAbajo=Frame(self.frame,bg="black")
+		frameAbajo.pack(expand=True,fill="both")
 
-		objetoFrameNuevoProducto=FRAME_NP(root)
+		def definirArriba():
+			lbl_taloon=Label(frameArriba,text="Taloon",bg="black",fg="#DBDDDA",
+				font=("Courier",14,"bold italic"))
+			lbl_taloon.pack(side="left",expand=True,
+				fill="both",padx=3,pady=3)
 
-		frameFormulaPromocion=FRAME_PROMOCION(root)
+			boton_salir=Button(frameArriba,text="Salir",
+				command=lambda:self.salir())
+			boton_salir.config(bg="red",
+				fg="white",font=("Serif",20,"bold italic"))
+			boton_salir.pack(side="left",expand=False,
+				fill="both",padx=10,pady=10)
 
-		self.obj_frame_ver_contenedor=FRAME_VER_CONTENEDORES(root,self.bd_contenedor,self.bd,self.frame,listaOfertas)
+		def definirMedio():
+			boton_caja_registradora=Button(frameMedio,text="Modo caja",
+				command=lambda:self.modalidadCaja())
+			boton_caja_registradora.config(bg="#01836A",
+				fg="white",font=("Serif",25,"bold italic"))
+			boton_caja_registradora.pack(side="left",expand=True,
+				fill="both",padx=3,pady=3)
 
-		self.frameEdicion=frame_edicion_obj.dameFrame(root)
+		def definirAbajo():
+			btn_nuevo_promotor=Button(frameAbajo,text="Nuevo \n promotor",
+				command=lambda:self.nuevoPromotor())
+			btn_nuevo_promotor.config(bg="#043501",
+				fg="white",font=("Serif",24,"bold italic"))
+			btn_nuevo_promotor.pack(side="left",expand=False,fill="both",padx=1,pady=1)
 
-		self.frameVerContenedores=self.obj_frame_ver_contenedor.dameFrame()
+			btn_ver_promotores=Button(frameAbajo,text="Ver \n promotores",
+				command=lambda:self.frameVerProms())
+			btn_ver_promotores.config(bg="#960385",
+				fg="white",font=("Serif",24,"bold italic"))
+			btn_ver_promotores.pack(side="left",expand=True,fill="both",padx=1,pady=1)
 
-		self.frameNuevoProducto=objetoFrameNuevoProducto.dame_frame_np()
+			btn_ver_ticket=Button(frameAbajo,text="Boton \nver Tickets",
+				command=lambda:self.verTickets())
+			btn_ver_ticket.config(bg="#D89000",
+				fg="white",font=("Serif",24,"bold italic"))
+			btn_ver_ticket.pack(side="left",expand=True,fill="both",padx=1,pady=1)
 
-		self.frameNuevoContenedor=objetoFrame.dameFrame()
-		self.framePromocion=frameFormulaPromocion.dameFrame()
-		self.visible2=False
-		self.visible3=False
-		self.visible4=False
-
-
-	def framePrincipal(self):
-		print("Guarda algo en Git!")
-		self.frame.grid(row=0, column=0, sticky=N+S+E+W)
-		self.frame.config(bg="#B77C1D")
-		Grid.rowconfigure(self.frame, 7, weight=1)
-		Grid.columnconfigure(self.frame, 0, weight=1)
-
-		return self.frame
-
-
-	def pantallaPrincipal(self):
-		self.frame.pack()
-		self.frameEdicion.pack_forget()
+		definirArriba()
+		definirMedio()
+		definirAbajo()	
 
 
-	def modoPantalla(self):
-		self.root.attributes('-fullscreen',True)
-		frameMP=self.obj_modo_pantalla.dameFrame()
-		#frameMP.pack(side="left",anchor="n")
-		#frameMP.pack(fill="x")
-		frameMP.pack(fill="both",expand=True)
-		#frameMP.pack(fill="y",expand=True)
+	def verTickets(self):
+		self.ticket.frame.pack(fill="both",expand=True)
 		self.frame.pack_forget()
 
-		for item in self.listaOfertas:
-			print(item.dame())
 
+
+
+
+	def nuevoPromotor(self):
+		self.nuevoProm.frame.pack(fill="both",expand=True)
+		self.frame.pack_forget()
+		
+	def modalidadCaja(self):
+		self.modoCaja.frame.pack(side="left",fill="both",expand=True)
+
+		self.frame.pack_forget()	
+	
+
+	def crearNuevaCuenta(self):
+		obj_cuenta={
+			"lista":[],
+			"fecha":date.today(),
+			"total":0
+		}
+		self.cuentas.append(obj_cuenta)
+
+				
+
+	def frameVerProms(self):
+		self.verPromotores.frame.pack(fill="both",expand=True)
+		self.frame.pack_forget()
 
 	def verProductos(self):
-		self.bd.conexionBBDD()
-		print("Ver productos")
-
-		self.frameEdicion.pack()
-
-		#self.boton_atras.pack()
+		self.frameEdicion.construirFrameEdicion()
+		self.frameEdicion.frame.pack()
 		self.frame.pack_forget()	
 
-
-	def verContenedores(self):
-		self.bd.conexionBBDD()
-		self.bd_contenedor.conexionBBDD()
-		#self.bd_contenedor.conexionBBDD()
-		self.frame.pack_forget()
-		self.frameVerContenedores.pack()
-
-
-	def mostar_panel_1(self):
-	
-		if(self.visible2):
-			self.visible2=False
-			self.frameNuevoProducto.pack_forget()
+	def logo(self,imagen):
+		lbl=Label(self.frame,image=imagen)
+		lbl.grid(row=2,column=1,sticky="nsew",columnspan=3)
 			
-		else:
-			self.visible2=True
-			self.frameNuevoProducto.pack()
-
-
-	def mostar_panel_2(self):
+	def verContenedores(self):
 		self.frame.pack_forget()
-		self.frameNuevoContenedor.pack()
-		'''if(self.visible3):
-			self.visible3=False
-			self.frameNuevoContenedor.pack_forget()
-		else:
-			self.visible3=True
-			self.frameNuevoContenedor.pack()'''
+		self.frameVerContenedores.frame.pack()
 
-	def mostrar_panel_3(self):
 
-		if(self.visible4):
-			self.visible4=False
-			self.framePromocion.pack_forget()
-		else:
-			self.visible4=True
-			self.framePromocion.pack()				
+	def salir(self):
+		self.root.attributes('-fullscreen', False) 
 	
 
-listaOfertas=[]
 root=Tk()
 root.config(bg="#0C9203")
-#root.geometry("1000x700")
-root.title("Starbucks OD")
-root.iconbitmap("cafe_icono.ico")
-imagen=PhotoImage(file="logo_peque.png")
+root.geometry("1800x1800")
+#root.attributes('-fullscreen', True) 
+root.title("OD")
 
-Grid.rowconfigure(root, 0, weight=1)
-Grid.columnconfigure(root, 0, weight=1)
+laVentana=ventana(root)
 
-laVentana=ventana(root,listaOfertas)
-
-frame=laVentana.framePrincipal()
-frame.pack()
-#w = Scrollbar (root,orient=HORIZONTAL)
-#w.pack(side=RIGHT, fill=Y)
+laVentana.menuPrincipal()
 
 
-boton_ver_productos=Button(frame,text="Ver \n productos",command=laVentana.verProductos)
-boton_ver_productos.config(bg="green",fg="white",font=("Serif",22))
-boton_ver_productos.grid(row=0,column=0,sticky=N+S+E+W)
-
-
-boton_ingresa_producto=Button(frame,text="Ingresar nuevo \n producto",command=lambda:laVentana.mostar_panel_1())
-boton_ingresa_producto.config(bg="green",fg="white",padx=5,pady=5,font=("Serif",22))
-#btn.bind('<Button-1>',mostar_panel_1)
-boton_ingresa_producto.grid(row=0,column=1,sticky=N+S+E+W)#,padx=10,pady=10)
-
-boton_ver_contenedores=Button(frame,text="Ver \n contenedores",command=laVentana.verContenedores)
-boton_ver_contenedores.config(bg="green",fg="white",font=("Serif",22))
-boton_ver_contenedores.grid(row=1,column=0,sticky=N+S+E+W)
-
-
-boton_nuevo_contenedor=Button(frame,text="Nuevo \n contenedor",command=lambda:laVentana.mostar_panel_2())
-#btn.bind('<Button-1>',mostar_panel_1)
-boton_nuevo_contenedor.grid(row=1,column=1,sticky=N+S+E+W)#padx=10,pady=10)
-boton_nuevo_contenedor.config(bg="green",fg="white",font=("Serif",22))
-
-boton_crear_promocion=Button(frame,text="Crear nueva \n promocion",command=lambda:laVentana.mostrar_panel_3())
-boton_crear_promocion.config(bg="green",fg="white",font=("Serif",22))
-boton_crear_promocion.grid(row=2,column=0,sticky=N+S+E+W)
-
-boton_modo_pantalla=Button(frame,text="Modo \n pantalla",command=lambda:laVentana.modoPantalla())
-boton_modo_pantalla.config(bg="green",fg="white",font=("Serif",22))
-boton_modo_pantalla.grid(row=2,column=1,sticky=N+S+E+W)
-
-canvas=Canvas(frame)
-canvas.grid(row=2,column=2,sticky=N+S+E+W)
-imagen=PhotoImage(file="logo_peque.png")
-canvas.create_image(60,10,anchor=NW,image=imagen)
+laVentana.frame.pack(fill="both",expand=True)
 
 
 root.mainloop()
