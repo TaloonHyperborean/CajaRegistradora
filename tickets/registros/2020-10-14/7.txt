@@ -1,0 +1,1 @@
+{"total": 299, "lista": [["Chuleta", 18], ["Bistec", 25], ["Pechuga", 25], ["Arrachera", 30], ["Arrachera", 30], ["Pechuga", 25], ["Choriqueso", 45], ["Champiqueso\nEspecial", 51], ["Amarillo", 23], ["Oaxaca +\nTocino", 27]]}

@@ -1,0 +1,1 @@
+{"total": 180, "lista": [["Sencillo", 20], ["Oaxaca\nTocino\nAmarillo", 29], ["Orden\npapas", 40], ["Choriqueso", 45], ["Hamburgesa Hawaiana", 46]]}

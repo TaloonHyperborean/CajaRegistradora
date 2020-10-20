@@ -1,0 +1,1 @@
+{"total": 138, "lista": [["Hamburgesa Hawaiana", 46], ["Hamburgesa Hawaiana", 46], ["Hamburgesa Hawaiana", 46]]}

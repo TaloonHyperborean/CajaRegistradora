@@ -1,0 +1,1 @@
+{"total": 423, "lista": [["Doble carne\nEspecial", 72], ["Doble carne\nEspecial", 72], ["Doble carne\nEspecial", 72], ["Doble carne\nEspecial", 72], ["Choriqueso", 45], ["Choriqueso", 45], ["Choriqueso", 45]]}

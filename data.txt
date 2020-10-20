@@ -1,0 +1,5 @@
+{"people": [{"name": "Scott", "website": "stackabuse.com", "from": "Nebraska"}, {"name": "Larry", "website": "google.com", "from": "Michigan"}, {"name": "Tim", "website": "apple.com", "from": "Alabama"}]}
+
+  "Promotor:"Aaron Tolentino
+  "address": "0x921D940834B5d0AEc3d5fFDeC39B3e4167a12036",
+  "privateKey": "0x82a76b8a2299fcdc23edf6efbc76bb0437d3bf607a896c549cef36828c32cebf"

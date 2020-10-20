@@ -1,0 +1,24 @@
+'''def logo(self,imagen):
+		canvas=Canvas(laVentana.frame)
+		canvas.grid(row=3,columnspan=2,sticky=N+S+E+W)
+		canvas.create_image(50,0,anchor=NW,image=imagen)
+
+		ini_time_for_now = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
+
+		btn.bind('<Enter>',lambda event:self.printDesc(descripcion))
+
+			def ingresarAutorizacion(self,texto):
+		lbl_firma=Label(self.frame,text="Firma: ",
+			font=("Courier",20,"bold italic"))
+		lbl_firma.grid(row=5,column=0,padx=3,pady=3)
+		entry_firma=Entry(self.frame,textvariable=self.firma,
+			font=("Courier",24,"bold italic"),show="*")
+		entry_firma.grid(row=5,column=1,padx=10,pady=10,sticky="nsew")
+		entry_firma.bind('<Return>',lambda event:self.crearCodigos(texto))
+
+
+		#Evento en bucle con parametros
+		entry_firma.bind('<Return>',lambda event, i=i:metodo(i))
+
+
+		'''

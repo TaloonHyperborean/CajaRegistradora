@@ -1,0 +1,9 @@
+¿Como ejecutar el tiki-taka?
+Como ejecutar con exito mi estrategia para usar la blockchain con el inventario de una tienda. 
+
+Objetivos del programa:
+*Calcular promociones que se adaptan a los sobrantes del inventario.
+
+Mi desafio es cone
+
+Supply chain

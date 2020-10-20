@@ -1,0 +1,1 @@
+{"total": 934, "lista": [["Champiqueso", 47], ["Choriqueso", 45], ["Choriqueso", 45], ["Hawai\nEspecial", 73], ["Choriqueso\nEspecial", 45], ["Champiqueso\nEspecial", 51], ["Doble carne", 58], ["RompeQuijada", 93], ["RompeQuijada", 93], ["RompeQuijada", 93], ["RompeQuijada\nEspecial", 100], ["Doble carne\nEspecial", 72], ["Doble carne\nEspecial", 72], ["Champiqueso", 47]]}

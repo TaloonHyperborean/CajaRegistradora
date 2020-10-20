@@ -1,0 +1,1 @@
+{"total": 100, "lista": [["Sencillo", 20], ["Sencillo", 20], ["Sencillo", 20], ["Sencillo", 20], ["Sencillo", 20]]}

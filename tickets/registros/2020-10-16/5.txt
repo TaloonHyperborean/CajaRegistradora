@@ -1,0 +1,1 @@
+{"total": 61, "lista": [["Bistec", 25], ["Chuleta", 18], ["Longaniza", 18]]}
